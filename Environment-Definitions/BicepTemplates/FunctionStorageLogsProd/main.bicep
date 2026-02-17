@@ -21,6 +21,9 @@ var contentShareName = toLower(take(replace('content${suffix}', '-', ''), 63))
 resource storageAccount 'Microsoft.Storage/storageAccounts@2023-05-01' = {
   name: storageAccountName
   location: location
+  tags: {
+    SecurityControl: 'Ignore'
+  }
   sku: {
     name: storageSku
   }

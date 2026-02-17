@@ -1,55 +1,55 @@
 # ade-demo
 
-Azure Deployment Environments demo catalog repository.
+Azure Deployment Environments (ADE) demo catalog.
 
-## Catalog structure
+## Catalog definitions
 
-This repo includes ADE environment definitions:
+This catalog contains two Bicep-based environment definitions:
 
 - `Environment-Definitions/BicepTemplates/FunctionStorageLogsV2`
 - `Environment-Definitions/BicepTemplates/FunctionStorageLogsProdV2`
 
-## Environment definition
-
-`FunctionStorageLogsV2` deploys:
+Each definition deploys:
 
 - Azure Storage Account
-- Azure Function App (Consumption)
+- Azure Function App (Consumption plan)
 - Azure Log Analytics Workspace
 
-Defaults are set to low-cost options:
+## FunctionStorageLogsV2
+
+Flexible profile with low-cost defaults:
 
 - Function plan: `Y1` (Consumption)
 - Storage SKU: `Standard_LRS`
 - Log Analytics SKU: `PerGB2018`
 - Log retention: `30` days
 
-## User-configurable options
-
-Through `environment.yaml`, developers can override a few values:
+User-configurable parameters:
 
 - `namePrefix`
 - `functionRuntime` (`node`, `python`, `dotnet-isolated`, `powershell`)
 - `storageSku` (`Standard_LRS`, `Standard_GRS`)
 
-`logRetentionInDays` is fixed at `30` in the Bicep template (integer), and is not user-editable.
+`logRetentionInDays` is fixed at integer value `30` and is not user-editable.
 
-`FunctionStorageLogsProdV2` deploys the same resources with a stricter profile and fewer editable parameters.
+## FunctionStorageLogsProdV2
 
-Fixed defaults in `FunctionStorageLogsProdV2`:
+Stricter profile with fewer editable inputs.
+
+Fixed settings:
 
 - Runtime: `dotnet-isolated`
 - Storage SKU: `Standard_GRS`
 - Log retention: `90` days
 
-User-editable parameters in `FunctionStorageLogsProdV2`:
+User-configurable parameters:
 
 - `namePrefix`
 
-## Add this repo as an ADE catalog
+## Use as ADE catalog
 
 1. In your dev center or project, open **Catalogs**.
 2. Add this GitHub repository as a catalog.
 3. Set folder path to `Environment-Definitions/BicepTemplates`.
 4. Sync the catalog.
-5. Use `FunctionStorageLogsV2` (flexible demo) or `FunctionStorageLogsProdV2` (stricter profile) in the developer portal.
+5. In the developer portal, choose `FunctionStorageLogsV2` or `FunctionStorageLogsProdV2`.

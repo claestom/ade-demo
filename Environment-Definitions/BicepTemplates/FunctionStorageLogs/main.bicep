@@ -1,6 +1,3 @@
-@description('Azure region for deployment.')
-param location string = resourceGroup().location
-
 @description('Prefix used to generate globally unique resource names.')
 @minLength(3)
 @maxLength(11)
@@ -28,6 +25,7 @@ param storageSku string = 'Standard_LRS'
 param logRetentionInDays int = 30
 
 var suffix = uniqueString(subscription().id, resourceGroup().id)
+var deploymentLocation = resourceGroup().location
 var storageBaseName = toLower('st${replace(namePrefix, '-', '')}${suffix}')
 var storageAccountName = length(storageBaseName) > 24 ? substring(storageBaseName, 0, 24) : storageBaseName
 var functionAppName = toLower(take('${namePrefix}-func-${suffix}', 60))
@@ -37,7 +35,7 @@ var contentShareName = toLower(take(replace('content${suffix}', '-', ''), 63))
 
 resource storageAccount 'Microsoft.Storage/storageAccounts@2023-05-01' = {
   name: storageAccountName
-  location: location
+  location: deploymentLocation
   tags: {
     SecurityControl: 'Ignore'
   }
@@ -54,7 +52,7 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2023-05-01' = {
 
 resource logAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2023-09-01' = {
   name: logWorkspaceName
-  location: location
+  location: deploymentLocation
   properties: {
     sku: {
       name: 'PerGB2018'
@@ -68,7 +66,7 @@ resource logAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2023-09
 
 resource functionPlan 'Microsoft.Web/serverfarms@2023-12-01' = {
   name: planName
-  location: location
+  location: deploymentLocation
   sku: {
     name: 'Y1'
     tier: 'Dynamic'
@@ -81,7 +79,7 @@ resource functionPlan 'Microsoft.Web/serverfarms@2023-12-01' = {
 
 resource functionApp 'Microsoft.Web/sites@2023-12-01' = {
   name: functionAppName
-  location: location
+  location: deploymentLocation
   kind: 'functionapp'
   identity: {
     type: 'SystemAssigned'

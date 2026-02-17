@@ -1,0 +1,46 @@
+# yaml-language-server: $schema=https://github.com/Azure/deployment-environments/releases/download/2022-11-11-preview/manifest.schema.json
+name: FunctionStorageLogs
+version: 1.0.0
+summary: Azure Function App with Storage and Log Analytics
+description: Deploys a low-cost Azure Function App on Consumption plan, with a Storage Account and Log Analytics Workspace.
+runner: Bicep
+templatePath: main.bicep
+parameters:
+  - id: location
+    name: location
+    description: Azure region for deployment.
+    type: string
+    default: "[resourceGroup().location]"
+    required: false
+  - id: namePrefix
+    name: namePrefix
+    description: Prefix used in generated resource names.
+    type: string
+    default: adedemo
+    required: false
+  - id: functionRuntime
+    name: functionRuntime
+    description: Runtime stack for the Function App.
+    type: string
+    default: node
+    required: false
+    allowed:
+      - node
+      - python
+      - dotnet-isolated
+      - powershell
+  - id: storageSku
+    name: storageSku
+    description: SKU for the Storage Account.
+    type: string
+    default: Standard_LRS
+    required: false
+    allowed:
+      - Standard_LRS
+      - Standard_GRS
+  - id: logRetentionInDays
+    name: logRetentionInDays
+    description: Retention period for Log Analytics workspace data.
+    type: integer
+    default: 30
+    required: false

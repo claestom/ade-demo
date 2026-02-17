@@ -4,14 +4,14 @@ Azure Deployment Environments demo catalog repository.
 
 ## Catalog structure
 
-This repo includes one ADE environment definition:
+This repo includes ADE environment definitions:
 
-- `Environment-Definitions/BicepTemplates/FunctionStorageLogs`
-- `Environment-Definitions/BicepTemplates/FunctionStorageLogsProd`
+- `Environment-Definitions/BicepTemplates/FunctionStorageLogsV2`
+- `Environment-Definitions/BicepTemplates/FunctionStorageLogsProdV2`
 
 ## Environment definition
 
-`FunctionStorageLogs` deploys:
+`FunctionStorageLogsV2` deploys:
 
 - Azure Storage Account
 - Azure Function App (Consumption)
@@ -28,24 +28,22 @@ Defaults are set to low-cost options:
 
 Through `environment.yaml`, developers can override a few values:
 
-- `location`
 - `namePrefix`
 - `functionRuntime` (`node`, `python`, `dotnet-isolated`, `powershell`)
 - `storageSku` (`Standard_LRS`, `Standard_GRS`)
 
 `logRetentionInDays` is fixed at `30` in the Bicep template (integer), and is not user-editable.
 
-`FunctionStorageLogsProd` deploys the same resources with a stricter profile and fewer editable parameters.
+`FunctionStorageLogsProdV2` deploys the same resources with a stricter profile and fewer editable parameters.
 
-Fixed defaults in `FunctionStorageLogsProd`:
+Fixed defaults in `FunctionStorageLogsProdV2`:
 
 - Runtime: `dotnet-isolated`
 - Storage SKU: `Standard_GRS`
 - Log retention: `90` days
 
-User-editable parameters in `FunctionStorageLogsProd`:
+User-editable parameters in `FunctionStorageLogsProdV2`:
 
-- `location`
 - `namePrefix`
 
 ## Add this repo as an ADE catalog
@@ -54,4 +52,4 @@ User-editable parameters in `FunctionStorageLogsProd`:
 2. Add this GitHub repository as a catalog.
 3. Set folder path to `Environment-Definitions/BicepTemplates`.
 4. Sync the catalog.
-5. Use `FunctionStorageLogs` (flexible demo) or `FunctionStorageLogsProd` (stricter profile) in the developer portal.
+5. Use `FunctionStorageLogsV2` (flexible demo) or `FunctionStorageLogsProdV2` (stricter profile) in the developer portal.

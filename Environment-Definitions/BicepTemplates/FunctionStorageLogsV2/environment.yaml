@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=https://github.com/Azure/deployment-environments/releases/download/2022-11-11-preview/manifest.schema.json
-name: FunctionStorageLogs
-version: 1.0.2
+name: FunctionStorageLogsV2
+version: 1.0.3
 summary: Azure Function App with Storage and Log Analytics
 description: Deploys a low-cost Azure Function App on Consumption plan, with a Storage Account and Log Analytics Workspace.
 runner: Bicep

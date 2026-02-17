@@ -32,7 +32,8 @@ Through `environment.yaml`, developers can override a few values:
 - `namePrefix`
 - `functionRuntime` (`node`, `python`, `dotnet-isolated`, `powershell`)
 - `storageSku` (`Standard_LRS`, `Standard_GRS`)
-- `logRetentionInDays`
+
+`logRetentionInDays` is fixed at `30` in the Bicep template (integer), and is not user-editable.
 
 `FunctionStorageLogsProd` deploys the same resources with a stricter profile and fewer editable parameters.
 

@@ -44,13 +44,13 @@ Stricter profile with fewer editable inputs.
 
 Fixed settings:
 
-- Runtime: `dotnet-isolated`
 - Storage SKU: `Standard_GRS`
 - Log retention: `90` days
 
 User-configurable parameters:
 
 - `namePrefix`
+- `functionRuntime` (`dotnet-isolated`, `powershell`)
 
 ## Use as ADE catalog
 

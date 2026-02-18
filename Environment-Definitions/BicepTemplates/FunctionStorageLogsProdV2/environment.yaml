@@ -1,14 +1,13 @@
 # yaml-language-server: $schema=https://github.com/Azure/deployment-environments/releases/download/2022-11-11-preview/manifest.schema.json
 name: FunctionStorageLogsProdV2
 version: 1.0.2
-summary: Production profile for Function App with Storage and Log Analytics
+summary: This is a deployment of an Azure Function App with Storage and Log Analytics using Bicep.
 description: Deploys a stricter Azure Function App environment with limited customization inputs for consistent production-like deployments.
 runner: Bicep
 templatePath: main.bicep
 parameters:
-  - id: namePrefix
-    name: namePrefix
-    description: Prefix used in generated resource names.
-    type: string
-    default: adeprod
-    required: false
+  - id: "namePrefix"
+    name: "Name Prefix"
+    description: "Prefix used in generated resource names"
+    type: "string"
+    default: "adeprod"

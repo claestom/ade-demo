@@ -2,6 +2,12 @@
 
 Azure Deployment Environments (ADE) demo catalog.
 
+## Repository structure
+
+- `Environment-Definitions/BicepTemplates` - active ADE Bicep definitions
+- `Environment-Definitions/ARMTemplates` - placeholder for ARM definitions
+- `Tasks` - placeholder for Dev Box task definitions
+
 ## Catalog definitions
 
 This catalog contains two Bicep-based environment definitions:

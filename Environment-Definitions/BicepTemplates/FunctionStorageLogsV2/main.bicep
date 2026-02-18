@@ -34,20 +34,6 @@ var functionAppName = toLower(take('${namePrefix}-func-${suffix}', 60))
 var planName = toLower(take('${namePrefix}-plan-${suffix}', 40))
 var logWorkspaceName = toLower(take('${namePrefix}-log-${suffix}', 63))
 var contentShareName = toLower(take(replace('content${suffix}', '-', ''), 63))
-var isLinuxRuntime = functionRuntime == 'python'
-var functionAppKind = isLinuxRuntime ? 'functionapp,linux' : 'functionapp'
-var contentAppSettings = isLinuxRuntime
-  ? []
-  : [
-      {
-        name: 'WEBSITE_CONTENTAZUREFILECONNECTIONSTRING'
-        value: 'DefaultEndpointsProtocol=https;AccountName=${storageAccount.name};AccountKey=${storageAccount.listKeys().keys[0].value};EndpointSuffix=${environment().suffixes.storage}'
-      }
-      {
-        name: 'WEBSITE_CONTENTSHARE'
-        value: contentShareName
-      }
-    ]
 
 resource storageAccount 'Microsoft.Storage/storageAccounts@2023-05-01' = {
   name: storageAccountName
@@ -87,16 +73,16 @@ resource functionPlan 'Microsoft.Web/serverfarms@2023-12-01' = {
     name: 'Y1'
     tier: 'Dynamic'
   }
-  kind: functionAppKind
+  kind: 'functionapp'
   properties: {
-    reserved: isLinuxRuntime
+    reserved: false
   }
 }
 
 resource functionApp 'Microsoft.Web/sites@2023-12-01' = {
   name: functionAppName
   location: location
-  kind: functionAppKind
+  kind: 'functionapp'
   identity: {
     type: 'SystemAssigned'
   }
@@ -106,8 +92,7 @@ resource functionApp 'Microsoft.Web/sites@2023-12-01' = {
     siteConfig: {
       minTlsVersion: '1.2'
       ftpsState: 'Disabled'
-      linuxFxVersion: isLinuxRuntime ? 'Python|3.12' : null
-      appSettings: concat([
+      appSettings: [
         {
           name: 'FUNCTIONS_EXTENSION_VERSION'
           value: '~4'
@@ -120,7 +105,15 @@ resource functionApp 'Microsoft.Web/sites@2023-12-01' = {
           name: 'AzureWebJobsStorage'
           value: 'DefaultEndpointsProtocol=https;AccountName=${storageAccount.name};AccountKey=${storageAccount.listKeys().keys[0].value};EndpointSuffix=${environment().suffixes.storage}'
         }
-      ], contentAppSettings)
+        {
+          name: 'WEBSITE_CONTENTAZUREFILECONNECTIONSTRING'
+          value: 'DefaultEndpointsProtocol=https;AccountName=${storageAccount.name};AccountKey=${storageAccount.listKeys().keys[0].value};EndpointSuffix=${environment().suffixes.storage}'
+        }
+        {
+          name: 'WEBSITE_CONTENTSHARE'
+          value: contentShareName
+        }
+      ]
     }
   }
 }

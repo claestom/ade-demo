@@ -6,13 +6,7 @@ param location string = resourceGroup().location
 @maxLength(11)
 param namePrefix string = 'adeprod'
 
-@description('Runtime stack for the Function App.')
-@allowed([
-  'dotnet-isolated'
-  'powershell'
-])
-param functionRuntime string = 'dotnet-isolated'
-
+var functionRuntime = 'dotnet-isolated'
 var storageSku = 'Standard_GRS'
 var logRetentionInDays = 90
 

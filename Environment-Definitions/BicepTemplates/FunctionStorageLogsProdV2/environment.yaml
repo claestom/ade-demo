@@ -10,11 +10,3 @@ parameters:
     description: "Prefix used in generated resource names"
     type: "string"
     default: "adeprod"
-  - id: "functionRuntime"
-    name: "Function Runtime"
-    description: "Runtime stack for the Function App"
-    type: "string"
-    default: "dotnet-isolated"
-    allowed:
-      - "dotnet-isolated"
-      - "powershell"

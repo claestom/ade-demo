@@ -1,4 +1,5 @@
 # Local-only troubleshooting tools and outputs
+local-tools/
 .troubleshoot/
 
 # Optional ad-hoc CLI export files

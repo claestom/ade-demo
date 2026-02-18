@@ -1,0 +1,1 @@
+az deployment group what-if --resource-group "rg-devcenter-demo-cargolux" --name "whatif-functionstoragelogsv2-$(Get-Date -Format yyyyMMddHHmmss)" --template-file "../Environment-Definitions/BicepTemplates/FunctionStorageLogsV2/main.bicep" --parameters namePrefix="adedemo" functionRuntime="node" storageSku="Standard_LRS" --result-format FullResourcePayloads
